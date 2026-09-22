@@ -691,6 +691,7 @@ private fun BrowserScreen() {
     var adBlockOn by remember { mutableStateOf(activity.appSettings.adBlockEnabled) }
     var autoPipOn by remember { mutableStateOf(activity.appSettings.autoPip) }
     var bgPlayOn by remember { mutableStateOf(activity.appSettings.backgroundPlayback) }
+    var keepAwakeOn by remember { mutableStateOf(activity.appSettings.keepAwake) }
     var darkOn by remember { mutableStateOf(activity.appSettings.darkMode) }
     var textZoom by remember { mutableStateOf(activity.appSettings.textZoom) }
 
@@ -1489,6 +1490,10 @@ private fun BrowserScreen() {
                                 SheetSwitchRow("Background playback", bgPlayOn) {
                                     bgPlayOn = it
                                     activity.appSettings.backgroundPlayback = it
+                                }
+                                SheetSwitchRow("Keep screen awake", keepAwakeOn) {
+                                    keepAwakeOn = it
+                                    activity.appSettings.keepAwake = it
                                 }
                                 SheetSwitchRow("Dark mode", darkOn) {
                                     darkOn = it
