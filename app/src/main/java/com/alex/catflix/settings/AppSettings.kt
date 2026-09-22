@@ -45,6 +45,11 @@ class AppSettings(context: Context) {
         get() = prefs.getBoolean(KEY_SWIPE_ZOOM, false)
         set(value) = prefs.edit { putBoolean(KEY_SWIPE_ZOOM, value) }
 
+    /** Keep the screen awake whenever the app is open (not just in playback). */
+    var keepAwake: Boolean
+        get() = prefs.getBoolean(KEY_KEEP_AWAKE, false)
+        set(value) = prefs.edit { putBoolean(KEY_KEEP_AWAKE, value) }
+
 
     var fabX: Float
         get() = prefs.getFloat(KEY_FAB_X, 1f).coerceIn(0f, 1f)
@@ -73,6 +78,7 @@ class AppSettings(context: Context) {
         private const val KEY_DARK_MODE = "dark_mode"
         private const val KEY_TEXT_ZOOM = "text_zoom"
         private const val KEY_SWIPE_ZOOM = "swipe_zoom"
+        private const val KEY_KEEP_AWAKE = "keep_awake"
         private const val KEY_FAB_X = "fab_x"
         private const val KEY_FAB_Y = "fab_y"
         private const val KEY_DESKTOP_MODE = "desktop_mode"

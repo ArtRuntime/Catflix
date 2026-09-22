@@ -710,6 +710,30 @@ private fun BrowserScreen() {
         onDispose { MediaStateBus.removeListener(listener) }
     }
 
+    // Keep the screen alive while video plays (window-held wake lock:
+    // no permission needed, released automatically with the window).
+    DisposableEffect(playing, keepAwakeOn) {
+        val win = try {
+            (context as? MainActivity)?.window
+        } catch (_: Exception) {
+            null
+        }
+        try {
+            if (playing || keepAwakeOn) {
+                win?.addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            } else {
+                win?.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+        } catch (_: Exception) {
+        }
+        onDispose {
+            try {
+                win?.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            } catch (_: Exception) {
+            }
+        }
+    }
+
     val webRef = remember { arrayOfNulls<WebView>(1) }
     val holderRef = remember { arrayOfNulls<FullscreenHolder>(1) }
     val bridge = remember { FilePickerBridge() }
